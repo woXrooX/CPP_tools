@@ -1,7 +1,9 @@
 # Out
-OUT = -o ./out/bin
+OUT = -o ./out/x
 
 # Flags
+# -lsqlite3 for lsqlite3
+# -lssl -lcrypto for openssl/sha256
 # -Wall = Warn ALl
 FLAGS = -Wall
 
@@ -9,18 +11,23 @@ FLAGS = -Wall
 CPPSTDV = -std=c++2a
 
 # File(s)
-FILES = ./examples/main.cpp
+FILES = ./source/main.cpp
 
 # Default / Main
-buildAndRunMain: clear buildMain runMain
+build_and_run_main: clear build_main run_main
 
 # Builds executable
-buildMain:
+build_main:
 	g++ $(FILES) $(OUT) $(CPPSTDV) $(FLAGS)
 
 # Runs the outputed file
-runMain: clear
-	./out/bin
+run_main: clear
+	./out/x
+
+# Build And Run Client
+client: clear
+	g++ ./source/client.cpp -o ./out/client $(CPPSTDV) $(FLAGS)
+	./out/client
 
 # Clears The Terminal
 clear:
