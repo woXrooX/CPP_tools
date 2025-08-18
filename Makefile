@@ -7,7 +7,7 @@ OUT = -o ./out/x
 # -Wall = Warn ALl
 FLAGS = -Wall
 
-# C++ Standard Version
+# C++ standard version
 CPPSTDV = -std=c++2a
 
 # File(s)
