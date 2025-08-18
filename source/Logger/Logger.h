@@ -62,18 +62,14 @@ namespace woXrooX {
 		static void custom(T1 type, T2 message) { Logger::log(type, message); }
 
 		static void line() {
-			// Comment 4 daemon. Daemon has no terminal to "stdout"
-			// std::cout << Logger::color_line << "----------------------------------------------------------------" << Logger::color_end << '\n';
+			std::cout << Logger::color_line << "----------------------------------------------------------------" << Logger::color_end << '\n';
 
-			// If Enabled Line For "log_to_file"
 			if (Logger::log_to_file_enabled) Logger::log_to_file("\n----------------------------------------------------------------------------------------\n");
 		}
 
 		static void new_line() {
-			// Comment 4 daemon. Daemon has no terminal to "stdout"
-			// std::cout << '\n';
+			std::cout << '\n';
 
-			// If enabled new line for "log_to_file"
 			if (Logger::log_to_file_enabled) Logger::log_to_file("\n");
 		}
 
@@ -140,8 +136,7 @@ namespace woXrooX {
 			// freopen((Logger::logs_absolute_path+"all.log").c_str(), "a", stdout);
 
 			// Out | Log
-			// Comment 4 daemon. Daemon has no terminal to "stdout"
-			// std::cout << Logger::square_brackets_open << timestamp << Logger::square_brackets_close << Logger::square_brackets_open << Logger::color_start << type << Logger::color_end << Logger::square_brackets_close << message << '\n';
+			std::cout << Logger::square_brackets_open << timestamp << Logger::square_brackets_close << Logger::square_brackets_open << Logger::color_start << type << Logger::color_end << Logger::square_brackets_close << message << '\n';
 
 			// Cosntructing "log_to_file" [timestamp] [TYPE] Message
 			if (Logger::log_to_file_enabled) Logger::log_to_file(('[' + timestamp + "] [" + type + "] " + message + '\n'));
@@ -154,10 +149,7 @@ namespace woXrooX {
 			// https://softwareengineering.stackexchange.com/questions/386269/why-do-you-want-to-avoid-flushing-stdout
 			// if (!(Logger::file << log << std::flush)) std::cout << "ERROR: Could not write the log" << '\n';
 			// W/O flushing logs will be written when OS thinks buffer is big enough to flush instead flushing small data.
-			if (!(Logger::file << log)) {
-				// Comment 4 daemon. Daemon has no terminal to "stdout"
-				// std::cout << "ERROR: Could not write the log: " << log << '\n';
-			}
+			if (!(Logger::file << log)) std::cout << "ERROR: Could not write the log: " << log << '\n';
 		}
 
 		static void close_log_file() {
