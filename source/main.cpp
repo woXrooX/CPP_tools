@@ -17,7 +17,7 @@
 // #include "tools/client/client.h"
 // #include "tools/daemon/daemon.h"
 // #include "tools/json/json.h"
-// #include "tools/logger/logger.h"
+// #include "Logger/Logger.h"
 // #include "tools/MET/met.h"
 // #include "web_server/Server.h"
 // #include "tools/sha256/sha256.h"
@@ -39,29 +39,12 @@ int main() {
 	// met.showLaps();
 
 
-	//////////// Logger
-	// woXrooX::Logger::enableLogToFile();
-	// woXrooX::Logger::disableLogToFile();
-	//
-	// woXrooX::Logger::enableSquareBrackets();
-	// woXrooX::Logger::disableSquareBrackets();
-	//
-	// woXrooX::Log::custom("Custom", "Custom Message");
-	// woXrooX::Log::success("SUCCESS");
-	// woXrooX::Log::info("INFO");
-	// woXrooX::Log::warning("WARNING");
-	// woXrooX::Log::error("ERROR");
-	// woXrooX::Log::line();
-	// woXrooX::Log::newLine();
-
-
-
 	//////////// Daemon
 	// woXrooX::Daemon::start();
 
 
 	//////////// Server
-	woXrooX::Server::start();
+	// woXrooX::Server::start();
 	// woXrooX::Server::stop();
 
 	//////////// Json
