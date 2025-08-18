@@ -96,14 +96,14 @@ namespace woXrooX{
 					// Unknown
 					else HTTP::response_content_type = "unknown/unknown";
 
-					HTTP::response_status = Configurations::HTTP::Response_status::OK;
+					HTTP::response_status = Configurations::HTTP::Response_Status::OK;
 					HTTP::response_body = File_System::get_all().find(HTTP::request_file)->second;
 				}
 			}
 
 			// Serve for just path request
 			else {
-				HTTP::response_status = Configurations::HTTP::Response_status::OK;
+				HTTP::response_status = Configurations::HTTP::Response_Status::OK;
 				HTTP::response_content_type = Configurations::HTTP::Content_Type::text_HTML;
 				HTTP::response_body = File_System::get_all().find(Configurations::path_index_HTML)->second;
 			}

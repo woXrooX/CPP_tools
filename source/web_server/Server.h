@@ -52,9 +52,9 @@ namespace woXrooX{
 			if(Server::on == false) return;
 
 			Server::on = false;
-			Server::close_new_socket_tcp();
-			Server::shutdown_socket_tcp();
-			Server::close_socket_tcp();
+			Server::close_new_socket_TCP();
+			Server::shutdown_socket_TCP();
+			Server::close_socket_TCP();
 		}
 
 	private:
@@ -174,7 +174,7 @@ namespace woXrooX{
 				Server::close_new_socket_TCP();
 			}
 
-			if (Server::new_socket_tcp == -1) Log::error("Failed to accept");
+			if (Server::new_socket_TCP == -1) Log::error("Failed to accept");
 		}
 
 		static void in(){
@@ -245,7 +245,7 @@ namespace woXrooX{
 			else Log::success("Socket TCP shutdown successfully");
 		}
 
-		static void close_socket_tcp(){
+		static void close_socket_TCP(){
 			// Check if socket_TCP established successfully
 			if(Server::socket_TCP == -1) return;
 
