@@ -5,11 +5,31 @@
 
 // 4 logs_absolute_path Existance Check
 #include <filesystem>
+
 #include <fstream>
 #include <string>
+#include <sstream>
+#include <ctime>
 
 // for time
 #include <iomanip>
+
+enum class OS {
+	Unknown = 0,
+
+	// Unix, Linux and MacOS
+	Posix = 1,
+	Windows = 2
+};
+
+#if defined(__linux__) || defined(__unix__) || defined(__APPLE__)
+	inline constexpr OS LOGGER_OS = OS::Posix;
+#elif defined(_WIN32)
+	inline constexpr OS LOGGER_OS = OS::Windows;
+#else
+	inline constexpr OS LOGGER_OS = OS::Unknown;
+#endif
+
 
 // Types
 struct Types{
@@ -87,7 +107,7 @@ namespace woXrooX {
 			}
 		}
 
-		static void disable_log_to_file(){
+		static void disable_log_to_file() {
 			Logger::log_to_file_enabled = false;
 			Logger::log(Types::INFO, "log_to_file_enabled: Disabled");
 			Logger::close_log_file();
@@ -101,7 +121,7 @@ namespace woXrooX {
 			Logger::log(Types::INFO, "square_brackets: Enabled");
 		}
 
-		static void disableSquareBrackets() {
+		static void disable_square_brackets() {
 			Logger::square_brackets_open = "";
 			Logger::square_brackets_close = " ";
 			Logger::log(Types::INFO, "square_brackets: Disabled");
@@ -161,7 +181,7 @@ namespace woXrooX {
 		// https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 		static void set_color(const std::string& type) {
 			// Unix | Linux
-			if (__linux__ || __unix__){
+			if (LOGGER_OS == OS::Posix) {
 				Logger::color_start = "\033[1;90m";
 				if (Types::SUCCESS.compare(type) == 0) Logger::color_start = "\033[1;32m";
 				else if (Types::INFO.compare(type) == 0) Logger::color_start = "\033[1;34m";
