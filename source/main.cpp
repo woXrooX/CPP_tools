@@ -19,7 +19,7 @@
 // #include "tools/json/json.h"
 // #include "tools/logger/logger.h"
 // #include "tools/MET/met.h"
-// #include "tools/server/server.h"
+// #include "web_server/Server.h"
 // #include "tools/sha256/sha256.h"
 // #include "tools/workflow/workflow.h"
 
@@ -30,99 +30,99 @@
 
 // int main(int argc, char const *argv[]){
 int main() {
-//////////// Lab Call
-  // lab();
+	//////////// Lab Call
+	// lab();
 
-//////////// Met
-  // woXrooX::MET met;
-  // met.lap("500ms");
-  // met.showLaps();
-
-
-//////////// Logger
-  // woXrooX::Logger::enableLogToFile();
-  // woXrooX::Logger::disableLogToFile();
-  //
-  // woXrooX::Logger::enableSquareBrackets();
-  // woXrooX::Logger::disableSquareBrackets();
-  //
-  // woXrooX::Log::custom("Custom", "Custom Message");
-  // woXrooX::Log::success("SUCCESS");
-  // woXrooX::Log::info("INFO");
-  // woXrooX::Log::warning("WARNING");
-  // woXrooX::Log::error("ERROR");
-  // woXrooX::Log::line();
-  // woXrooX::Log::newLine();
+	//////////// Met
+	// woXrooX::MET met;
+	// met.lap("500ms");
+	// met.showLaps();
 
 
-
-//////////// Daemon
-  // woXrooX::Daemon::start();
-
-
-//////////// Server
-  // woXrooX::Server::start();
-  // woXrooX::Server::stop();
-
-//////////// Json
-  // woXrooX::Json::parse("Hey");
-
-
-//////////// BlockChain
-  // woXrooX::Block blockA("A Block", "0000000000000000000000000000000000000000000000000000000000000000");
-  // woXrooX::Block blockB("B Block", blockA.getHash());
-  // woXrooX::Block blockC("C Block", blockB.getHash());
-  // woXrooX::Block blockD("D Block", blockC.getHash());
-  //
-  // woXrooX::Chain chain;
-  // chain.addBlockToChain(blockA);
-  // chain.addBlockToChain(blockB);
-  // chain.addBlockToChain(blockC);
-  // chain.addBlockToChain(blockD);
-  //
-  // chain.getInfos();
-  // chain.getBlocksInfos();
+	//////////// Logger
+	// woXrooX::Logger::enableLogToFile();
+	// woXrooX::Logger::disableLogToFile();
+	//
+	// woXrooX::Logger::enableSquareBrackets();
+	// woXrooX::Logger::disableSquareBrackets();
+	//
+	// woXrooX::Log::custom("Custom", "Custom Message");
+	// woXrooX::Log::success("SUCCESS");
+	// woXrooX::Log::info("INFO");
+	// woXrooX::Log::warning("WARNING");
+	// woXrooX::Log::error("ERROR");
+	// woXrooX::Log::line();
+	// woXrooX::Log::newLine();
 
 
-//////////// Sha256
-  // std::string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccczzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-  // std::string data = "Data";
-  // woXrooX::Sha256 hash;
-  // std::cout << hash.digest(data) << '\n';
+
+	//////////// Daemon
+	// woXrooX::Daemon::start();
 
 
-//////////// workflow
-  // woXrooX::Workflow workflow(argc, argv);
+	//////////// Server
+	woXrooX::Server::start();
+	// woXrooX::Server::stop();
+
+	//////////// Json
+	// woXrooX::Json::parse("Hey");
 
 
-//////////// FileSystem
-  // std::cout << std::filesystem::current_path() << '\n';  // Prints Current Path By Invokation Point
-  // std::filesystem::create_directories("a/b/c/d");  // Creates All Folders In The Way If Doensn't Exists
-  // std::filesystem::create_directory("a/b/c/d");    // Creates Folder d If a, b, c Are Exists
-
-  // std::filesystem::path p = "main.cpp"; // Creates "main.cpp"
-  // std::cout << std::filesystem::current_path() << '\n';  // Prints /home/to/current/invokation/folder
-  // std::cout << std::filesystem::absolute(p) << '\n';  // Prints /home/to/current/invokation/folder/main.cpp
-
-//////////// Async & Await
-  // std::cout << "Main ID: " << std::this_thread::get_id() << '\n';
-  // std::cout << "Hardware Concurrency: " << std::thread::hardware_concurrency() << '\n';
-
-  // std::future<void> f = std::async(func_name); // With or without New Thread. below code is the same
-  // std::future<void> f = std::async(std::launch::async | std::launch::deferred, func_name); // w/ or w/o New Thread
-  // std::future<void> f = std::async(std::launch::async, func_name); // w/ New Thread
-  // std::future<void> f = std::async(std::launch::deferred, func_name); // w/o New Thread
-  // f.get(); // Calls the func
-  // auto a = f.get();
-
-  // std::future<void> fa = std::async(std::launch::deferred, a);
-  // std::future<void> fb = std::async(std::launch::deferred, b);
-  //
-  // fa.wait();
-  // fb.wait();
+	//////////// BlockChain
+	// woXrooX::Block blockA("A Block", "0000000000000000000000000000000000000000000000000000000000000000");
+	// woXrooX::Block blockB("B Block", blockA.getHash());
+	// woXrooX::Block blockC("C Block", blockB.getHash());
+	// woXrooX::Block blockD("D Block", blockC.getHash());
+	//
+	// woXrooX::Chain chain;
+	// chain.addBlockToChain(blockA);
+	// chain.addBlockToChain(blockB);
+	// chain.addBlockToChain(blockC);
+	// chain.addBlockToChain(blockD);
+	//
+	// chain.getInfos();
+	// chain.getBlocksInfos();
 
 
-  return 0;
+	//////////// Sha256
+	// std::string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccczzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
+	// std::string data = "Data";
+	// woXrooX::Sha256 hash;
+	// std::cout << hash.digest(data) << '\n';
+
+
+	//////////// workflow
+	// woXrooX::Workflow workflow(argc, argv);
+
+
+	//////////// FileSystem
+	// std::cout << std::filesystem::current_path() << '\n';  // Prints Current Path By Invokation Point
+	// std::filesystem::create_directories("a/b/c/d");  // Creates All Folders In The Way If Doensn't Exists
+	// std::filesystem::create_directory("a/b/c/d");    // Creates Folder d If a, b, c Are Exists
+
+	// std::filesystem::path p = "main.cpp"; // Creates "main.cpp"
+	// std::cout << std::filesystem::current_path() << '\n';  // Prints /home/to/current/invokation/folder
+	// std::cout << std::filesystem::absolute(p) << '\n';  // Prints /home/to/current/invokation/folder/main.cpp
+
+	//////////// Async & Await
+	// std::cout << "Main ID: " << std::this_thread::get_id() << '\n';
+	// std::cout << "Hardware Concurrency: " << std::thread::hardware_concurrency() << '\n';
+
+	// std::future<void> f = std::async(func_name); // With or without New Thread. below code is the same
+	// std::future<void> f = std::async(std::launch::async | std::launch::deferred, func_name); // w/ or w/o New Thread
+	// std::future<void> f = std::async(std::launch::async, func_name); // w/ New Thread
+	// std::future<void> f = std::async(std::launch::deferred, func_name); // w/o New Thread
+	// f.get(); // Calls the func
+	// auto a = f.get();
+
+	// std::future<void> fa = std::async(std::launch::deferred, a);
+	// std::future<void> fb = std::async(std::launch::deferred, b);
+	//
+	// fa.wait();
+	// fb.wait();
+
+
+	return 0;
 }
 
 
