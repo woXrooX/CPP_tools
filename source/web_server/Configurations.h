@@ -27,14 +27,14 @@ namespace woXrooX{
 				static inline const std::string image_JPEG = "image/jpeg";
 				static inline const std::string image_GIF = "image/gif";
 
-				static inline const std::string font_WOFF = "ont/woff";
+				static inline const std::string font_WOFF = "font/woff";
 				static inline const std::string font_WOFF2 = "font/woff2";
 				static inline const std::string font_OTF = "font/otf";
 				static inline const std::string font_TTF = "font/ttf";
 			};
 
 			struct Response_Status final{
-				static inline const std::string ok = "200 OK";
+				static inline const std::string OK = "200 OK";
 				static inline const std::string not_found = "404 Not Found";
 			};
 		};
