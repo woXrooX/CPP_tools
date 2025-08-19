@@ -12,14 +12,16 @@
 // #include <syslog.h> // 4 syslog(), openlog(), closelog(), LOG_PID, LOG_DAEMON, LOG_NOTICE
 // #include <csignal> // 4 std::signal()
 
+// Used by all the tools
+#include "Logger/Logger.h"
 
 // #include "tools/blockchain/chain.h"
-// #include "tools/client/client.h"
+
 // #include "tools/daemon/daemon.h"
 // #include "tools/json/json.h"
-// #include "Logger/Logger.h"
 // #include "tools/MET/met.h"
-// #include "web_server/Server.h"
+// #include "HTTP_server/Server.h"
+// #include "HTTP_client/Client.h"
 // #include "tools/sha256/sha256.h"
 // #include "tools/workflow/workflow.h"
 
@@ -46,6 +48,7 @@ int main() {
 	//////////// Server
 	// woXrooX::Server::start();
 	// woXrooX::Server::stop();
+
 
 	//////////// Json
 	// woXrooX::Json::parse("Hey");
