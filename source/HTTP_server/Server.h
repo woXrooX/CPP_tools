@@ -28,7 +28,7 @@ struct sockaddr_storage client_address;
 socklen_t client_address_size = sizeof client_address;
 
 namespace woXrooX{
-	class Server final{
+	class Server final {
 	public:
 		static void start() {
 			File_System::collec();
