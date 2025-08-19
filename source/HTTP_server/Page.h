@@ -1,5 +1,5 @@
-#ifndef WEB_SERVER_PAGE_H
-#define WEB_SERVER_PAGE_H
+#ifndef HTTP_SERVER_PAGE_H
+#define HTTP_SERVER_PAGE_H
 
 #include <map>
 

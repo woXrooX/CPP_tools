@@ -1,8 +1,8 @@
 // std::cout << std::filesystem::exists(entry) << '\n';
 // std::cout << std::filesystem::is_directory(entry) << '\n';
 
-#ifndef WEB_SERVER_FILES_H
-#define WEB_SERVER_FILES_H
+#ifndef HTTP_SERVER_FILES_H
+#define HTTP_SERVER_FILES_H
 
 #include <filesystem>
 #include <fstream>

@@ -1,7 +1,7 @@
 // HTTPs://code.tutsplus.com/tutorials/HTTP-headers-for-dummies--net-8039
 
-#ifndef WEB_SERVER_HTTP_H
-#define WEB_SERVER_HTTP_H
+#ifndef HTTP_SERVER_HTTP_H
+#define HTTP_SERVER_HTTP_H
 
 // 4 debugging
 #include <iostream>

@@ -1,5 +1,5 @@
-#ifndef WEB_SERVER_H
-#define WEB_SERVER_H
+#ifndef HTTP_SERVER_H
+#define HTTP_SERVER_H
 
 // memset
 #include <string.h>

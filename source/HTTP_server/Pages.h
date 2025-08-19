@@ -1,5 +1,5 @@
-#ifndef WEB_SERVER_PAGES_H
-#define WEB_SERVER_PAGES_H
+#ifndef HTTP_SERVER_PAGES_H
+#define HTTP_SERVER_PAGES_H
 
 namespace woXrooX{
 	Page home("home", "Home", false, false);
