@@ -8,8 +8,6 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 
-struct sockaddr_in server_socket_address;
-
 namespace woXrooX{
 	class Client final{
 	public:
@@ -32,31 +30,28 @@ namespace woXrooX{
 			Client::create_connect();
 			Client::out();
 			Client::in();
+			Client::shutdown_socket_TCP();
 			Client::close_socket_TCP();
 		}
 
 	private:
-		static const char* IP;
-		static int PORT;
+		inline static const char* IP = nullptr;
+		inline static int PORT = 0;
 
-		static std::string out_data;
-		static std::string in_data;
+		inline static int server_socket_address_result = -1;
+		inline static int socket_TCP = -1;
+		inline static int connect_result = -1;
 
-		static int bytes_sent;
-		static int bytes_received;
-
-		static int server_socket_address_result;
-		static int socket_TCP;
-		static int connect_result;
+		inline static struct sockaddr_in server_socket_address;
 
 		static void init_server_socket_address() {
 			// Zeroing addr before using
-			memset(&server_socket_address, 0, sizeof(server_socket_address));
+			memset(&Client::server_socket_address, 0, sizeof(Client::server_socket_address));
 
-			server_socket_address.sin_family = AF_INET;
-			server_socket_address.sin_port = htons(Client::PORT);
+			Client::server_socket_address.sin_family = AF_INET;
+			Client::server_socket_address.sin_port = htons(Client::PORT);
 
-			Client::server_socket_address_result = inet_pton(AF_INET, Client::IP, &server_socket_address.sin_addr);
+			Client::server_socket_address_result = inet_pton(AF_INET, Client::IP, &Client::server_socket_address.sin_addr);
 
 			if (Client::server_socket_address_result == 0) Log::error("init_server_socket_address(): Invalid address string");
 			if (Client::server_socket_address_result == -1) Log::error("init_server_socket_address(): Error (e.g., unsupported af); errno is set (commonly EAFNOSUPPORT)");
@@ -99,29 +94,25 @@ namespace woXrooX{
 			ssize_t in_data;
 			while ((in_data = recv(Client::socket_TCP, buffer, BUFFER_SIZE, 0)) > 0) fwrite(buffer, 1, in_data, stdout);
 
-			if (in_data < 0) Log::error("Failed to close socket TCP");
+			if (in_data < 0) Log::error("in(): Error");
+		}
+
+		static void shutdown_socket_TCP(){
+			if (Client::socket_TCP == -1) return;
+
+			if (shutdown(Client::socket_TCP, SHUT_RDWR) != 0) Log::error("Failed to shutdown socket TCP");
+			else Log::success("Socket TCP shutdown successfully");
 		}
 
 		static void close_socket_TCP(){
 			if(Client::socket_TCP == -1) return;
 
-			if (close(Client::socket_TCP) == -1) Log::error("Failed to close socket TCP");
-			else Log::success("Socket TCP closed successfully");
+			if (close(Client::socket_TCP) == -1) return Log::error("Failed to close socket TCP");
+
+			Client::socket_TCP = -1;
+			Log::success("Socket TCP closed successfully");
 		}
 	};
-
-	const char* Client::IP;
-	int Client::PORT;
-
-	std::string Client::out_data;
-	std::string Client::in_data;
-
-	int Client::bytes_sent = 0;
-	int Client::bytes_received = 0;
-
-	int Client::server_socket_address_result = -1;
-	int Client::socket_TCP = -1;
-	int Client::connect_result = -1;
 }
 
 #endif
