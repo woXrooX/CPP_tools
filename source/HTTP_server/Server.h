@@ -21,7 +21,7 @@
 
 //////////////// Mess
 ////// Server computer's infos
-struct addrinfo hints, *result;
+struct addrinfo hints, *server_computer_infos;
 
 ////// Client computer's Iinfos
 struct sockaddr_storage client_address;
@@ -87,7 +87,7 @@ namespace woXrooX{
 
 			// Fill in my computer's IP for me
 			hints.ai_flags = AI_PASSIVE;
-			Server::get_addr_info = getaddrinfo(Configurations::Server::IP.c_str(), Configurations::Server::PORT.c_str(), &hints, &result);
+			Server::get_addr_info = getaddrinfo(Configurations::Server::IP.c_str(), Configurations::Server::PORT.c_str(), &hints, &server_computer_infos);
 
 			if(Server::get_addr_info != 0) Log::error("Error In Establishing Server Computer Informations");
 			else Log::success("Server Computer Informations Established Successfully");
@@ -97,7 +97,7 @@ namespace woXrooX{
 			// Check if server computer informations established successfully
 			if(Server::get_addr_info != 0) return;
 
-			Server::socket_TCP = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
+			Server::socket_TCP = socket(server_computer_infos->ai_family, server_computer_infos->ai_socktype, server_computer_infos->ai_protocol);
 			if(Server::socket_TCP == -1) Log::error("Failed to create socket descriptor.");
 			else Log::success("Socket descriptor created successfully");
 		}
@@ -133,7 +133,7 @@ namespace woXrooX{
 			// Check if socket TCP created successfully
 			if (Server::socket_TCP == -1) return;
 
-			Server::binding = bind(Server::socket_TCP, result->ai_addr, result->ai_addrlen);
+			Server::binding = bind(Server::socket_TCP, server_computer_infos->ai_addr, server_computer_infos->ai_addrlen);
 			if (Server::binding == -1) Log::error("Failed to bind.");
 			else Log::success("Bound successfully");
 		}
