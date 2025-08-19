@@ -44,7 +44,7 @@ namespace woXrooX{
 			Server::create_bind();
 			Server::create_listen();
 			Server::on = true;
-			Server::create_new_socket_TCP();
+			Server::create_accept();
 		}
 
 		static void stop() {
@@ -52,7 +52,7 @@ namespace woXrooX{
 			if(Server::on == false) return;
 
 			Server::on = false;
-			Server::close_new_socket_TCP();
+			Server::close_accept();
 			Server::shutdown_socket_TCP();
 			Server::close_socket_TCP();
 		}
@@ -73,11 +73,11 @@ namespace woXrooX{
 		static int socket_TCP;
 		static int binding;
 		static int listening;
-		static int new_socket_TCP;
+		static int accepting;
 
 		static void init_server_computer_infos() {
 			// Zeroing hints before using
-			memset(&hints, 0, sizeof hints);
+			memset(&hints, 0, sizeof(hints));
 
 			// Don't care IPv4 or IPv6
 			hints.ai_family = AF_UNSPEC;
@@ -87,6 +87,7 @@ namespace woXrooX{
 
 			// Fill in my computer's IP for me
 			hints.ai_flags = AI_PASSIVE;
+
 			Server::get_addr_info = getaddrinfo(Configurations::Server::IP.c_str(), Configurations::Server::PORT.c_str(), &hints, &server_computer_infos);
 
 			if(Server::get_addr_info != 0) Log::error("Error In Establishing Server Computer Informations");
@@ -95,10 +96,10 @@ namespace woXrooX{
 
 		static void create_socket_TCP(){
 			// Check if server computer informations established successfully
-			if(Server::get_addr_info != 0) return;
+			if (Server::get_addr_info != 0) return;
 
 			Server::socket_TCP = socket(server_computer_infos->ai_family, server_computer_infos->ai_socktype, server_computer_infos->ai_protocol);
-			if(Server::socket_TCP == -1) Log::error("Failed to create socket descriptor.");
+			if (Server::socket_TCP == -1) Log::error("Failed to create socket descriptor.");
 			else Log::success("Socket descriptor created successfully");
 		}
 
@@ -129,8 +130,8 @@ namespace woXrooX{
 			else Log::success("Keep alive enabled successfully");
 		}
 
+		// Binds socket to specific IP address and PORT
 		static void create_bind(){
-			// Check if socket TCP created successfully
 			if (Server::socket_TCP == -1) return;
 
 			Server::binding = bind(Server::socket_TCP, server_computer_infos->ai_addr, server_computer_infos->ai_addrlen);
@@ -138,6 +139,7 @@ namespace woXrooX{
 			else Log::success("Bound successfully");
 		}
 
+		// Waits for incoming client connections
 		static void create_listen(){
 			// Check if bound successfully
 			if (Server::binding == -1) return;
@@ -150,15 +152,16 @@ namespace woXrooX{
 			}
 		}
 
-		static void create_new_socket_TCP(){
+		// Once client inits a connection, server accepts and creates new socket dedicated to that specific client
+		static void create_accept(){
 			// Check if listening successfully
 			if (Server::listening == -1) return;
 
-			while ((Server::new_socket_TCP = accept(Server::socket_TCP, (struct sockaddr *)&client_address, &client_address_size)) >= 0) {
+			while ((Server::accepting = accept(Server::socket_TCP, (struct sockaddr*)&client_address, &client_address_size)) >= 0) {
 				Log::line();
 				Log::success("New connection accepted successfully");
 
-				// Log client IP address
+				//// Log client IP address
 
 				// 46 is max IPv6 size
 				char client_address_printable[46];
@@ -171,10 +174,10 @@ namespace woXrooX{
 				// Send data
 				Server::out();
 
-				Server::close_new_socket_TCP();
+				Server::close_accept();
 			}
 
-			if (Server::new_socket_TCP == -1) Log::error("Failed to accept");
+			if (Server::accepting == -1) Log::error("Failed to accept");
 		}
 
 		static void in(){
@@ -182,13 +185,13 @@ namespace woXrooX{
 			// bytes_received = 0 on end of the line
 			// bytes_received > 0 on data
 
-			// Check if new_socket_TCP established successfully
-			if (Server::new_socket_TCP == -1) return;
+			// Check if accepting established successfully
+			if (Server::accepting == -1) return;
 
 			char in_data[Configurations::Server::BUFFER];
 			int received_data_size = 0;
 			do {
-				Server::bytes_received = recv(Server::new_socket_TCP, in_data, Configurations::Server::BUFFER, 0);
+				Server::bytes_received = recv(Server::accepting, in_data, Configurations::Server::BUFFER, 0);
 				received_data_size += Server::bytes_received;
 
 				if (received_data_size > Configurations::Server::BUFFER-1 || in_data[Configurations::Server::BUFFER-1] == '\n') break;
@@ -216,10 +219,10 @@ namespace woXrooX{
 
 		static void out(){
 			// Check if new_socket_TCP established successfully
-			if (Server::new_socket_TCP == -1) return;
+			if (Server::accepting == -1) return;
 
 			Server::out_data = HTTP::get_response();
-			Server::bytes_sent = send(Server::new_socket_TCP, Server::out_data.c_str(), Server::out_data.size(), 0);
+			Server::bytes_sent = send(Server::accepting, Server::out_data.c_str(), Server::out_data.size(), 0);
 			if (Server::bytes_sent == -1) {
 				Log::error("Failed to send data");
 				return;
@@ -229,12 +232,11 @@ namespace woXrooX{
 			Log::custom(">", HTTP::get_response_first_line());
 		}
 
-		static void close_new_socket_TCP(){
-			// Check if new_socket_new_socket_TCPtcp established successfully
-			if (Server::new_socket_TCP == -1) return;
+		static void close_accept(){
+			if (Server::accepting == -1) return;
 
-			if (close(Server::new_socket_TCP) == -1) Log::error("Failed to close new socket TCP");
-			else Log::success("New socket TCP closed successfully");
+			if (close(Server::accepting) == -1) Log::error("Failed to close accept()");
+			else Log::success("accept() closed successfully");
 		}
 
 		static void shutdown_socket_TCP(){
@@ -265,7 +267,7 @@ namespace woXrooX{
 	int Server::socket_TCP = -1;
 	int Server::binding = -1;
 	int Server::listening = -1;
-	int Server::new_socket_TCP = -1;
+	int Server::accepting = -1;
 }
 
 #endif
