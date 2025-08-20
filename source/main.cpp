@@ -20,7 +20,6 @@
 // #include "tools/daemon/daemon.h"
 // #include "tools/json/json.h"
 // #include "tools/MET/met.h"
-// #include "tools/sha256/sha256.h"
 // #include "tools/workflow/workflow.h"
 
 
@@ -61,13 +60,6 @@ int main() {
 	//
 	// chain.getInfos();
 	// chain.getBlocksInfos();
-
-
-	//////////// Sha256
-	// std::string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccccccccccccccccccccccccccccccccccccccccccccczzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-	// std::string data = "Data";
-	// woXrooX::Sha256 hash;
-	// std::cout << hash.digest(data) << '\n';
 
 
 	//////////// workflow
