@@ -1,3 +1,7 @@
+# HTTP client
+
+### Usage
+```C++
 #include "HTTP_client/Client.h"
 
 int main() {
@@ -12,3 +16,5 @@ int main() {
 
 	return 0;
 }
+```
+
