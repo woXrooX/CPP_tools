@@ -26,6 +26,28 @@ namespace woXrooX{
 		static const std::string& get_response_first_line() { return HTTP::response_first_line; }
 
 	private:
+		inline static bool has_error = false;
+
+		// Request
+		inline static std::string request_header;
+		inline static std::string request_first_line;
+		inline static std::string request_method;
+		inline static std::string request_file;
+		inline static std::string request_protocol;
+
+		// Response
+		inline static std::string response;
+		inline static std::string response_header;
+		inline static std::string response_body;
+		inline static std::string response_first_line;
+		inline static std::string response_status;
+		inline static std::string response_protocol = "HTTP/2";
+		inline static std::string response_cache_control = "max-age=600";
+		inline static std::string response_content_type;
+		inline static std::string response_connection = "Connection: Close\r\n";
+		inline static const std::string response_server = "Server: woXrooX Web Server (WWS)\r\n";
+		inline static const std::string response_header_end = "\r\n";
+
 		static inline void parse(const std::string &in_data){
 			//// First line
 			HTTP::request_first_line = in_data.substr(0, in_data.find("\r\n"));
@@ -122,53 +144,7 @@ namespace woXrooX{
 
 			HTTP::response = HTTP::response_header + HTTP::response_body;
 		}
-
-		static bool has_error;
-
-		// Request
-		static std::string request_header;
-		static std::string request_first_line;
-		static std::string request_method;
-		static std::string request_file;
-		static std::string request_protocol;
-
-		// Response
-		static std::string response;
-		static std::string response_header;
-		static std::string response_body;
-		static std::string response_first_line;
-		static std::string response_status;
-		static std::string response_protocol;
-		static std::string response_cache_control;
-		static std::string response_content_type;
-		static std::string response_connection;
-		static const std::string response_server;
-		static const std::string response_header_end;
-
 	};
-
-	bool HTTP::has_error = false;
-
-	////// In data
-	std::string HTTP::request_header;
-	std::string HTTP::request_first_line;
-	std::string HTTP::request_method;
-	std::string HTTP::request_file;
-	std::string HTTP::request_protocol;
-
-
-	////// Out data
-	std::string HTTP::response;
-	std::string HTTP::response_header;
-	std::string HTTP::response_body;
-	std::string HTTP::response_first_line;
-	std::string HTTP::response_protocol = "HTTP/2";
-	std::string HTTP::response_status;
-	std::string HTTP::response_cache_control = "max-age=600";
-	std::string HTTP::response_content_type;
-	std::string HTTP::response_connection = "Connection: Close\r\n";
-	const std::string HTTP::response_server = "Server: woXrooX Web Server (WWS)\r\n";
-	const std::string HTTP::response_header_end = "\r\n";
 }
 
 #endif
