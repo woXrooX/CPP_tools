@@ -20,8 +20,6 @@
 // #include "tools/daemon/daemon.h"
 // #include "tools/json/json.h"
 // #include "tools/MET/met.h"
-// #include "HTTP_server/Server.h"
-// #include "HTTP_client/Client.h"
 // #include "tools/sha256/sha256.h"
 // #include "tools/workflow/workflow.h"
 
@@ -43,11 +41,6 @@ int main() {
 
 	//////////// Daemon
 	// woXrooX::Daemon::start();
-
-
-	//////////// Server
-	// woXrooX::Server::start();
-	// woXrooX::Server::stop();
 
 
 	//////////// Json
