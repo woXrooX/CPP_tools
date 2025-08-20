@@ -1,3 +1,7 @@
+# HTTP server
+
+### Usage
+```C++
 #include "HTTP_server/Server.h"
 
 int main() {
@@ -6,3 +10,5 @@ int main() {
 
 	return 0;
 }
+```
+
