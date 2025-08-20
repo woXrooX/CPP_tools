@@ -41,6 +41,9 @@ namespace woXrooX {
 		}
 
 	private:
+		inline static bool has_error = false;
+		inline static std::map<std::string, std::string> all;
+
 		static void open(const std::string& path) {
 			std::ifstream file;
 			std::string one_line, all_lines, relevant_path;
@@ -66,13 +69,7 @@ namespace woXrooX {
 
 			file.close();
 		}
-
-		static bool has_error;
-		static std::map<std::string, std::string> all;
 	};
-
-	bool File_System::has_error = false;
-	std::map<std::string, std::string> File_System::all;
 }
 
 #endif
