@@ -58,22 +58,22 @@ namespace woXrooX{
 		}
 
 	private:
-		static bool on;
+		inline static bool on = false;
 
-		static std::string out_data;
+		inline static std::string out_data = "";
 
 		// Not used for now
-		// static std::string in_data;
+		// inline static std::string in_data;
 
-		static int bytes_sent;
-		static int bytes_received;
+		inline static int bytes_sent = 0;
+		inline static int bytes_received = 0;
 
 		// Socket SetUp
-		static int get_addr_info;
-		static int socket_TCP;
-		static int binding;
-		static int listening;
-		static int accepting;
+		inline static int get_addr_info = 0;
+		inline static int socket_TCP = -1;
+		inline static int binding = -1;
+		inline static int listening = -1;
+		inline static int accepting = -1;
 
 		static void init_server_computer_infos() {
 			// Zeroing hints before using
@@ -255,19 +255,6 @@ namespace woXrooX{
 			else Log::success("Socket TCP closed successfully");
 		}
 	};
-
-	bool Server::on = false;
-
-	std::string Server::out_data;
-
-	int Server::bytes_sent = 0;
-	int Server::bytes_received = 0;
-
-	int Server::get_addr_info = 0;
-	int Server::socket_TCP = -1;
-	int Server::binding = -1;
-	int Server::listening = -1;
-	int Server::accepting = -1;
 }
 
 #endif
